@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "hx-requests-demo"
+version = "0.1.0"
+description = ""
+authors = ["yaakovLowenstein <lowensteinyaakov@gmail.com>"]
+
+[virtualenvs]
+in-project = true
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^5.0.2"
+django-admin = "^2.0.1"
+psycopg2 = "^2.9.3"
+django-postgres-extensions = "^0.9.3"
+tzdata = "^2022.1"
+django-crispy-forms = "^1.14.0"
+crispy-bootstrap5 = "^0.6"
+django-filter = "^21.1"
+python-dateutil = "^2.8.2"
+gunicorn = "^20.1.0"
+hx-requests = "0.35.4"
+requests = "^2.31.0"
+django-cors-headers = "^4.3.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.1.0"
+isort = "^5.10.1"
+pre-commit = "^2.20.0"
+djlint = "^1.19.7"
+
+
+[tool.djlint]
+max_line_length=105
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,22 @@
+{% load tags %}
+<div id="hx_messages" hx-swap-oob='true'>
+    <div style="position: absolute; top: 50px; right: 15px;">
+        {% for message in messages %}
+            <div class="toast mt-3"
+                 role="alert"
+                 aria-live="assertive"
+                 aria-atomic="true"
+                 data-bs-delay="{% get_toasts_delay message %}">
+                <div class="toast-body {{ message.tags }}">
+                    <small>
+                        <button type="button"
+                                class="btn-close pull-right"
+                                data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                    </small>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

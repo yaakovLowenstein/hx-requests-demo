@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: hx-demo-db
+    image: postgres:latest
+    volumes:
+      - hx_demo__pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - "5432:5432"
+
+  web:
+    container_name: hx-demo-web
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    # command: poetry run python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app:rw
+      - /etc/localtime:/etc/localtime
+
+    environment:
+      TZ: "America/Los_Angeles"
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: hx-demo-pg #you can change this
+    depends_on:
+      - db
+    ports:
+      - "5051:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: root
+    restart: always
+    volumes:
+      - hx-demo-pgadmin-data:/var/lib/pgadmin
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+volumes:
+  hx_demo__pgdata:
+  hx-demo-pgadmin-data:
