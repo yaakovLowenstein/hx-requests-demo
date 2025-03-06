@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="table-container"
-                 style="max-height: 700px;
+                 style="max-height: 800px;
                         overflow-y: auto;
                         border: 1px solid #ddd">
                 {% block table %}
@@ -89,27 +89,22 @@
                 {% endblock table %}
             </div>
         </div>
-        <div class="col-4 mt-4 pt-2"
+        <div class="col-4"
              x-data="codeViewer('{% static 'py/hx_requests.py' %}')"
              x-init="loadCode()">
-            <div class="col-6 pb-3">
-                <select x-model="file"
-                        @change="loadCode()"
-                        class="form-select"
-                        aria-label="Default select example">
-                    <option value="{% static 'py/hx_requests.py' %}">hx_requests.py</option>
-                    <option value="{% static 'py/views.py' %}">views.py</option>
-                    <option value="{% static 'py/user_list.html' %}">user_list.html</option>
-                </select>
-            </div>
+            <select x-model="file"
+                    @change="loadCode()"
+                    class="form-select"
+                    aria-label="Default select example">
+                <option value="{% static 'py/hx_requests.py' %}">hx_requests.py</option>
+                <option value="{% static 'py/views.py' %}">views.py</option>
+            </select>
             <div class="code-container"
                  style="height: 100%;
                         overflow-y: auto;
                         border: 1px solid #ddd;
                         padding: 10px">
-                <pre style="height:750px"><code :class="'language-' + syntaxClass"
-      x-ref="codeBlock"
-      x-text="codeContent"></code></pre>
+                <pre style="height:890px"><code class="language-python" x-ref="codeBlock" x-text="codeContent"></code></pre>
             </div>
         </div>
     </div>

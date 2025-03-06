@@ -1,23 +1,33 @@
 {% load tags %}
-<div id="hx_messages" hx-swap-oob='true' class="toast-container">
+<div id="hx_messages" hx-swap-oob='true'>
     <div style="position: absolute; top: 50px; right: 15px;">
         {% for message in messages %}
-            <div class="toast mt-3"
-                 data-bs-autohide="false"
+            <div class="toast mt-3 {{ message.tags }} text-white"
                  role="alert"
                  aria-live="assertive"
                  aria-atomic="true"
                  data-bs-delay="{% get_toasts_delay message %}">
-                <div class="toast-body {{ message.tags }}">
+                <div class="toast-body fw-bold">
+                    {{ message }}
                     <small>
                         <button type="button"
-                                class="btn-close pull-right"
+                                class="btn-close float-end text-white bg-white"
                                 data-bs-dismiss="toast"
                                 aria-label="Close"></button>
                     </small>
-                    {{ message }}
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
+<style>
+ .toast {
+            min-width: 20rem
+        }
+        .message-block {
+            position:fixed;
+            top:5rem;
+            right:1rem;
+            z-index:1030;
+        }
+</style>

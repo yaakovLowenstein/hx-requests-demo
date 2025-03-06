@@ -48,23 +48,13 @@
     <link href=" https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css "
           rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/base.js' %}"></script>
 </head>
 <body>
-    <div class="container-fluid mb-5 content">
+    <div class="container-fluid content my-container">
         {% include "hx_messages.html" %}
         {% block content %}
         {% endblock content %}
     </div>
     <div id="hx_modal_container"></div>
-    <script>
-  document.addEventListener('htmx:afterSwap', function () {
-    var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-    var toastList = toastElList.map(function (toastEl) {
-      return new bootstrap.Toast(toastEl);
-    });
-
-    // Show the toasts
-    toastList.forEach(toast => toast.show());
-  });
-    </script>
 </body>

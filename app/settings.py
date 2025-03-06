@@ -121,11 +121,11 @@ USE_I18N = True
 
 USE_TZ = True
 MESSAGE_TAGS = {
-    messages.DEBUG: "alert-info",
-    messages.INFO: "alert-info",
-    messages.SUCCESS: "alert-success",
-    messages.WARNING: "alert-warning",
-    messages.ERROR: "alert-danger",
+    messages.DEBUG: "b-info",
+    messages.INFO: "bg-info",
+    messages.SUCCESS: "bg-success",
+    messages.WARNING: "bg-warning",
+    messages.ERROR: "bg-danger",
 }
 HX_REQUESTS_USE_HX_MESSAGES = True
 HX_REQUESTS_HX_MESSAGES_TEMPLATE = "hx_messages.html"

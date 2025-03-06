@@ -7,3 +7,41 @@ table.htmx-swapping  {
     opacity: 0;
     transition: opacity .5s ease-out;
 }
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* Prevents page scrolling */
+}
+
+.container-fluid {
+    height: 100vh;
+    /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Prevents unnecessary body scrolling */
+}
+
+.row {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    /* Ensures columns do not cause body scrolling */
+}
+
+.col-8,
+.col-4 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.table-container {
+    flex: 1;
+    overflow-y: auto;
+    /* Makes only the table scroll */
+    border: 1px solid #ddd;
+}
