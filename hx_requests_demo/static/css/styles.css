@@ -1,0 +1,9 @@
+
+tr.htmx-swapping td {
+    opacity: 0;
+    transition: opacity .5s ease-out;
+}
+table.htmx-swapping  {
+    opacity: 0;
+    transition: opacity .5s ease-out;
+}

@@ -1,8 +1,9 @@
 {% load tags %}
-<div id="hx_messages" hx-swap-oob='true'>
+<div id="hx_messages" hx-swap-oob='true' class="toast-container">
     <div style="position: absolute; top: 50px; right: 15px;">
         {% for message in messages %}
             <div class="toast mt-3"
+                 data-bs-autohide="false"
                  role="alert"
                  aria-live="assertive"
                  aria-atomic="true"

@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+
 from django.contrib import messages
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -126,9 +128,8 @@ MESSAGE_TAGS = {
     messages.ERROR: "alert-danger",
 }
 HX_REQUESTS_USE_HX_MESSAGES = True
-HX_REQUESTS_HX_MESSAGES_TEMPLATE = "hx_requests_demo/hx_messages.html"
-HX_REQUESTS_MODAL_TEMPLATE = "hx_requests_demo/modal.html"
-
+HX_REQUESTS_HX_MESSAGES_TEMPLATE = "hx_messages.html"
+HX_REQUESTS_MODAL_TEMPLATE = "modal.html"
 
 
 # Static files (CSS, JavaScript, Images)

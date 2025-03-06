@@ -22,12 +22,16 @@ gunicorn = "^20.1.0"
 hx-requests = "0.35.4"
 requests = "^2.31.0"
 django-cors-headers = "^4.3.1"
+faker = "^36.1.1"
+
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.1.0"
 isort = "^5.10.1"
 pre-commit = "^2.20.0"
 djlint = "^1.19.7"
+pycln = "^2.5.0"
+
 
 
 [tool.djlint]

@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+{% load hx_tags %}
+<form method="post">
+    {% crispy form %}
+    <button {% hx_post 'create_user' %}
+            hx-target='#user-table'
+            hx-trigger="click"
+            hx-swap='outerHTML swap:.5s'
+            type="submit"
+            class="btn btn-primary d-flex"
+            style='margin-left:auto'>Submit</button>
+</form>

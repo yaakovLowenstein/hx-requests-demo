@@ -1,5 +1,5 @@
 <div class="modal fade"
-     x-on:modal-form-valid.camel="bootstrap.Modal.getOrCreateInstance(document.getElementById('hx_modal')).hide()"
+     @close-hx-modal.camel="bootstrap.Modal.getOrCreateInstance(document.getElementById('hx_modal')).hide()"
      id="hx_modal"
      tabindex="-1"
      role="dialog"
@@ -15,7 +15,7 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body" id='hx_modal_body'>
-                <p>{% include body %}</p>
+                <p>{{ body }}</p>
             </div>
         </div>
     </div>

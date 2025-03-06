@@ -1,10 +1,6 @@
-from typing import Any
-
 from django.contrib.auth import get_user_model
-from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView
-from hx_requests.views import HtmxViewMixin
 
 from hx_requests_demo.filtersets import UserFilterset
 
@@ -38,7 +34,7 @@ class FilteredListView(ListView):
         }
 
 
-class UserListView(HtmxViewMixin, FilteredListView):
+class UserListView(FilteredListView):
     model = get_user_model()
     template_name = "user_list.html"
     filterset_class = UserFilterset
