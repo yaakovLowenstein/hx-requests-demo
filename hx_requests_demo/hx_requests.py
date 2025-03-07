@@ -1,5 +1,3 @@
-from typing import Dict
-
 from hx_requests.hx_requests import BaseHxRequest, DeleteHxRequest, FormModalHxRequest
 
 from hx_requests_demo.forms import UserForm

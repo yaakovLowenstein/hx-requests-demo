@@ -44,4 +44,8 @@ body {
     overflow-y: auto;
     /* Makes only the table scroll */
     border: 1px solid #ddd;
+    max-height: 700px;
+}
+.ml-auto {
+    margin-left: auto;
 }

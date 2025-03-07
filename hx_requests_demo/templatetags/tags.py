@@ -1,7 +1,8 @@
 from django import template
 
-
 register = template.Library()
+
+
 @register.simple_tag
 def get_toasts_delay(message):
     message_str = str(message)
