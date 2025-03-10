@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    command: gunicorn new_site.wsgi:application --bind 0.0.0.0:8001
+    container_name: hx-requests-demo-web
+    volumes:
+      - static_volume:/app/staticfiles
+    expose:
+      - "8001"
+    stdin_open: true
+    tty: true
+    restart: always
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+    environment:
+      - VIRTUAL_HOST=hx-requests-demo.com
+      - LETSENCRYPT_HOST=hx-requests-demo.com
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+
+volumes:
+  static_volume:
