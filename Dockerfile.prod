@@ -34,6 +34,8 @@ RUN useradd -d /home/docker -m -s /bin/bash docker \
 
 # Create necessary directories
 RUN mkdir -p /app/staticfiles /app/mediafiles
+RUN mkdir /app/staticfiles
+
 
 # Set working directory
 WORKDIR /app
@@ -60,4 +62,4 @@ RUN chown -R docker:docker /app
 USER docker
 
 # Set entrypoint
-CMD ["gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["bash"]
