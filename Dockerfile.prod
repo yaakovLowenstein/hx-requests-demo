@@ -33,8 +33,9 @@ RUN useradd -d /home/docker -m -s /bin/bash docker \
     && adduser docker sudo
 
 # Create necessary directories
-RUN mkdir -p /app/staticfiles /app/mediafiles
+RUN mkdir /app
 RUN mkdir /app/staticfiles
+RUN mkdir /app/mediafiles
 
 
 # Set working directory
