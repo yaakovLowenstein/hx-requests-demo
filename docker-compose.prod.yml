@@ -5,9 +5,9 @@ services:
     image: postgres:15
     container_name: hx-db
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - hx_postgres_data:/var/lib/postgresql/data
     env_file:
-      - .env.prod
+      - .env
     expose:
       - "5432"
     networks:
@@ -32,7 +32,7 @@ services:
     tty: true
     restart: always
     env_file:
-      - ./.env.prod
+      - .env
     environment:
       - VIRTUAL_HOST=hx-requests-demo.com
       - LETSENCRYPT_HOST=hx-requests-demo.com
@@ -68,4 +68,4 @@ networks:
 
 volumes:
   static_volume:
-  postgres_data:
+  hx_postgres_data:
