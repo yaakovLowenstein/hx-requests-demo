@@ -55,6 +55,7 @@ services:
       - VIRTUAL_HOST=hx-requests-demo.com
       - VIRTUAL_PATH=/static
       - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=hx-requests-demo.com
     networks:
       - proxy-network
     depends_on:
