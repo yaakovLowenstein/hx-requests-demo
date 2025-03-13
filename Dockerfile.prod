@@ -1,8 +1,10 @@
 # Use a modern base image
 FROM python:3.11-slim
 
+ARG DJANGO_ENV
+
 # Set environment variables
-ENV DJANGO_ENV=production \
+ENV DJANGO_ENV=${DJANGO_ENV} \
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
   PYTHONHASHSEED=random \
@@ -13,7 +15,7 @@ ENV DJANGO_ENV=production \
   POETRY_VIRTUALENVS_IN_PROJECT=true \
   POETRY_VIRTUALENVS_CREATE=true
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
     bash \
@@ -25,27 +27,44 @@ RUN apt-get update \
     wget \
   && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
+# Create a non-root user
+RUN useradd -d /home/docker -m -s /bin/bash docker \
+    && echo "docker:docker" | chpasswd \
+    && adduser docker sudo
+
+# Create necessary directories
+RUN mkdir /app
+RUN mkdir /app/staticfiles
+RUN mkdir /app/mediafiles
+
+
+# Set working directory
+WORKDIR /app
+
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
-ENV PATH="${PATH}:/root/.local/bin"
 
-# Set the working directory
-WORKDIR /app
+# Update PATH for Poetry
+ENV PATH="${PATH}:/root/.local/bin"
 
 # Copy dependency files first for caching
 COPY pyproject.toml poetry.lock /app/
 
-# Install Python dependencies
+# Install dependencies
 RUN poetry install --no-dev --no-interaction --no-root
 
-# Copy the rest of the application code
+
+
+# Copy application files
 COPY . /app
 
-# Set ownership and permissions
+RUN poetry run python manage.py collectstatic --noinput
+
+# Set correct ownership & permissions
 RUN chown -R docker:docker /app
 
-# Switch to a non-root user
+# Switch to the non-root user
 USER docker
 
-# Set the entrypoint
-CMD ["gunicorn", "hx_requests_demo.wsgi:application", "--bind", "0.0.0.0:8001"]
+# Set entrypoint
+CMD ["bash"]
