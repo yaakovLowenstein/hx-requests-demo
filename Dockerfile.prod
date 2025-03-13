@@ -1,21 +1,29 @@
-# Use a modern base image
-FROM python:3.11-slim
+# The base image we want to inherit from
+FROM python:3.8-slim-buster
+
+
+
 
 ARG DJANGO_ENV
 
-# Set environment variables
 ENV DJANGO_ENV=${DJANGO_ENV} \
+  # python:
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
   PYTHONHASHSEED=random \
+  # pip:
   PIP_NO_CACHE_DIR=off \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100 \
+  # poetry:
   POETRY_VERSION=1.2.2 \
-  POETRY_VIRTUALENVS_IN_PROJECT=true \
-  POETRY_VIRTUALENVS_CREATE=true
+  #wnat to make thsi true again and also make user thing work on top, try with false and see if project runs, if yes then good and then do devcon
+  POETRY_VIRTUALENVS_IN_PROJECT=false \
+  POETRY_VIRTUALENVS_CREATE=false
 
-# Install system dependencies
+
+
+# System deps:
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
     bash \
@@ -25,48 +33,45 @@ RUN apt-get update \
     git \
     libpq-dev \
     wget \
+  # Cleaning cache:
   && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user
-RUN useradd -d /home/docker -m -s /bin/bash docker \
-    && echo "docker:docker" | chpasswd \
-    && adduser docker sudo
+RUN useradd -d /home/docker -m -s /bin/bash docker && \
+        echo "docker:docker" | chpasswd && \
+        adduser docker sudo
 
-# Create necessary directories
+# WORKDIR /home/docker
 RUN mkdir /app
 RUN mkdir /app/staticfiles
 RUN mkdir /app/mediafiles
 
 
-# Set working directory
 WORKDIR /app
 
-# Install Poetry
+
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
-# Update PATH for Poetry
 ENV PATH="${PATH}:/root/.local/bin"
+RUN echo "${PATH}:/root/.local/bin"
 
-# Copy dependency files first for caching
+
 COPY pyproject.toml poetry.lock /app/
-
-# Install Python dependencies (including gunicorn explicitly)
-RUN poetry install --no-dev --no-interaction --no-root
-RUN poetry run pip install gunicorn  # Ensure gunicorn is installed
-
-
-
-
-# Copy application files
+USER root
+RUN poetry install
 COPY . /app
+# USER docker
+#ENV PATH="/app/.venv/bin:$PATH"
+ENV HOME=/home
 
-RUN poetry run python manage.py collectstatic --noinput
+# RUN chown -R docker:docker $HOME/app
 
-# Set correct ownership & permissions
+# RUN chown -R docker:docker /home/docker
 RUN chown -R docker:docker /app
 
-# Switch to the non-root user
-USER docker
+# RUN chmod 777 /app
+# RUN chmod 777 /app
 
-# Set entrypoint
+USER docker
+#Only need if using .venv from poetry
+#RUN ["/bin/bash", "-c", "source '/app/.venv/bin/activate'"]
 CMD ["bash"]
