@@ -36,16 +36,17 @@ RUN apt-get update \
   # Cleaning cache:
   && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-# Download the source code
-RUN wget https://www.sqlite.org/releases/sqlite-autoconf-3310000.tar.gz && \
-    tar -xzf sqlite-autoconf-3310000.tar.gz && \
-    cd sqlite-autoconf-3310000 && \
-    ./configure && \
-    make && \
-    make install && \
-    cd - && \
-    rm -rf sqlite-autoconf-3310000.tar.gz sqlite-autoconf-3310000
+# Install dependencies
+RUN apt-get update && apt-get install -y wget build-essential
+
+# Download SQLite and install it
+RUN wget https://www.sqlite.org/2023/sqlite-autoconf-3400000.tar.gz
+RUN tar -xvf sqlite-autoconf-3400000.tar.gz
+RUN cd sqlite-autoconf-3400000 && ./configure && make && make install
+
+# Verify SQLite installation
 RUN sqlite3 --version
+
 
 
 RUN useradd -d /home/docker -m -s /bin/bash docker && \
