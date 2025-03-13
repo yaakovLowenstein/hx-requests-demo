@@ -64,6 +64,8 @@ services:
       - web
     volumes:
       - static_volume:/usr/share/nginx/html  # Ensures static files are shared
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+
 
 networks:
   proxy-network:
