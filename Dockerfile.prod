@@ -50,8 +50,10 @@ ENV PATH="${PATH}:/root/.local/bin"
 # Copy dependency files first for caching
 COPY pyproject.toml poetry.lock /app/
 
-# Install dependencies
+# Install Python dependencies (including gunicorn explicitly)
 RUN poetry install --no-dev --no-interaction --no-root
+RUN poetry run pip install gunicorn  # Ensure gunicorn is installed
+
 
 
 
