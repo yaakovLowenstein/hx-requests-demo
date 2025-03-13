@@ -25,7 +25,7 @@ services:
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8001
     container_name: hx-web
     volumes:
-      - static_volume:/app/staticfiles
+      - hx_static_volume:/app/staticfiles
     expose:
       - "8001"
     stdin_open: true
@@ -59,7 +59,7 @@ services:
     depends_on:
       - web
     volumes:
-      - static_volume:/usr/share/nginx/html:ro  # Ensures static files are shared
+      - hx_static_volume:/usr/share/nginx/html:ro  # Ensures static files are shared
       - ./default.conf:/etc/nginx/conf.d/default.conf:ro
 
 networks:
@@ -67,5 +67,5 @@ networks:
     external: true
 
 volumes:
-  static_volume:
+  hx_static_volume:
   hx_postgres_data:
