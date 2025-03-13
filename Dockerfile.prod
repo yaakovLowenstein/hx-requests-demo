@@ -53,11 +53,12 @@ COPY pyproject.toml poetry.lock /app/
 # Install dependencies
 RUN poetry install --no-dev --no-interaction --no-root
 
-RUN poetry run python manage.py collectstatic --noinput
 
 
 # Copy application files
 COPY . /app
+
+RUN poetry run python manage.py collectstatic --noinput
 
 # Set correct ownership & permissions
 RUN chown -R docker:docker /app
