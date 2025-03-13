@@ -1,13 +1,25 @@
 version: "3.9"
 
 services:
+  db:
+    image: postgres:15
+    container_name: hx-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env.prod
+    expose:
+      - "5432"
+    networks:
+      - proxy-network
+
   web:
     build:
       context: .
       dockerfile: Dockerfile.prod
     # image: 532288722115.dkr.ecr.us-east-1.amazonaws.com/hx:latest
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8001
-    container_name: hx-requests-demo-web
+    container_name: hx-web
     volumes:
       - static_volume:/app/staticfiles
     expose:
@@ -23,6 +35,8 @@ services:
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     networks:
       - proxy-network
+    depends_on:
+      - db
 
   # static files
   nginx:
