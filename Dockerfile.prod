@@ -36,10 +36,15 @@ RUN apt-get update \
   # Cleaning cache:
   && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y wget
-RUN wget https://sqlite.org/2021/sqlite-autoconf-3340000.tar.gz
-RUN tar -xvf sqlite-autoconf-3340000.tar.gz
-RUN cd sqlite-autoconf-3340000 && ./configure && make && make install
+# Install dependencies
+RUN apt-get update && apt-get install -y wget build-essential
+
+# Download and install SQLite
+RUN wget https://www.sqlite.org/2023/sqlite-autoconf-3390200.tar.gz
+RUN tar -xvf sqlite-autoconf-3390200.tar.gz
+RUN cd sqlite-autoconf-3390200 && ./configure && make && make install
+
+# Verify SQLite installation
 RUN sqlite3 --version
 
 
