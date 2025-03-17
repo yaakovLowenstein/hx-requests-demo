@@ -22,7 +22,8 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     # image: 532288722115.dkr.ecr.us-east-1.amazonaws.com/hx:latest
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8001
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8001 --workers 1 --log-level debug
+
     container_name: hx-web
     volumes:
       - static_volume:/app/staticfiles
