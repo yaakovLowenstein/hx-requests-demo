@@ -42,26 +42,6 @@ services:
     depends_on:
       - db
 
-  # static files
-  nginx:
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: Dockerfile.nginx
-    expose:
-      - "80"
-    environment:
-      - VIRTUAL_HOST=hx-requests-demo.com
-      - VIRTUAL_PATH=/static
-      - VIRTUAL_PORT=80
-    networks:
-      - proxy-network
-    depends_on:
-      - web
-    volumes:
-      - static_volume:/usr/share/nginx/html  # Ensures static files are shared
-      - ./default.conf:/etc/nginx/conf.d/default.conf
-
 networks:
   proxy-network:
     external: true
