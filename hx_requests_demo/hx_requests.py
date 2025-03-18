@@ -25,9 +25,8 @@ class UpdateUser(FormModalHxRequest):
     POST_block = "row"
 
     # This is how I would do it if the object list had other
-    # attributes appened to each item I.e. prefetches that
+    # attributes appended to each item I.e. prefetches that
     # use the to_attr argument
-
     # def get_context_on_POST(self, **kwargs):
     #     context= super().get_context_on_POST(**kwargs)
     #     context['object'] = self.view.filterset.qs.get(pk=self.hx_object.pk)

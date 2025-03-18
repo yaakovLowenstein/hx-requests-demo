@@ -49,3 +49,11 @@ body {
 .ml-auto {
     margin-left: auto;
 }
+.code-container{
+    height: 100%;
+     overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 50px;
+
+}
