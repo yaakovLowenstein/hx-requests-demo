@@ -33,7 +33,7 @@
                     {% for field in filterset.form %}
                         <div class="form-group col-3 mb-0">{{ field|as_crispy_field }}</div>
                     {% endfor %}
-                    <div class="row">
+                    <div class="">
                         <div class="col-2">
                             <button type='submit' class="btn btn-primary">Filter</button>
                         </div>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <div class="table-container">
+            <div class="table-container pb-5 mb-5">
                 {% block table %}
                     <table class="table table-striped table-hover" id="user-table">
                         <thead>
@@ -82,7 +82,7 @@
                                                         hx-target="#hx_modal_container"
                                                         hx-include='unset'>Edit</button>
                                                 <button class="btn btn-danger"
-                                                        {% hx_post 'delete_user' object=object %}
+                                                        {% hx_post 'delete_user' object=object use_full_path=True %}
                                                         hx-target="#row-{{ object.id }}"
                                                         hx-swap="delete swap:.5s"
                                                         hx-confirm="Are you sure?"
@@ -90,6 +90,10 @@
                                             </td>
                                         </tr>
                                     {% endblock row %}
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No data available</td>
+                                    </tr>
                                 {% endfor %}
                             {% endblock items %}
                         </tbody>

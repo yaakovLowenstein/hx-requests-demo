@@ -18,7 +18,6 @@ class Command(BaseCommand):
         for i in range(300):
             users.append(
                 User(
-                    id=i,
                     first_name=fake.first_name(),
                     last_name=fake.last_name(),
                     email=fake.email(),
