@@ -1,4 +1,9 @@
-from hx_requests.hx_requests import BaseHxRequest, DeleteHxRequest, FormModalHxRequest
+from hx_requests.hx_requests import (
+    BaseHxRequest,
+    DeleteHxRequest,
+    FormModalHxRequest,
+    ModalHxRequest,
+)
 
 from hx_requests_demo.forms import UserForm
 
@@ -48,3 +53,8 @@ class DeleteUser(DeleteHxRequest):
     POST_template = "user_list.html"
     POST_block = ["total"]
     refresh_views_context_on_POST = True
+
+
+class GetCode(ModalHxRequest):
+    name = "get_code"
+    GET_template = "code_display.html"

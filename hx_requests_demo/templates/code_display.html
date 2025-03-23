@@ -1,0 +1,24 @@
+{% load static %}
+<div x-data="codeViewer('{% static 'py/hx_requests.py' %}')"
+     x-init="loadCode()">
+    <div class="">
+        <div class="pb-3 px-0 mx-0">
+            <select x-model="file"
+                    @change="loadCode()"
+                    class="form-select"
+                    aria-label="Default select example">
+                <option value="{% static 'py/hx_requests.py' %}">hx_requests.py</option>
+                <option value="{% static 'py/views.py' %}">views.py</option>
+                <option value="{% static 'py/user_list.html' %}">user_list.html</option>
+                <option value="{% static 'py/update_form.html' %}">update_form.html</option>
+                <option value="{% static 'py/create_form.html' %}">create_form.html</option>
+            </select>
+        </div>
+        <div class="text-muted" x-show='file.includes("user_list")'>
+            <i>To easily find the elements making the Htmx requests, search by the hx_request_name: infinite_scroll, filter, update_user, create_user, delete_user</i>
+        </div>
+    </div>
+    <div class="code-container row">
+        <pre style="height:750px"><code style="padding-bottom:300px" :class="'language-' + syntaxClass" x-ref="codeBlock" x-text="codeContent"></code></pre>
+    </div>
+</div>
